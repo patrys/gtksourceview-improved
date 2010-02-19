@@ -53,7 +53,7 @@
     <style id="decimal" _name="Decimal" map-to="def:decimal"/>
     <style id="dimension" _name="Dimension" map-to="def:floating-point"/>
     <style id="known-property-values" _name="Known Property Value" map-to="def:constant"/>
-    <style id="at-rules" _name="at-rules" map-to="def:keyword"/>
+    <style id="at-rules" _name="at-rules" map-to="def:preprocessor"/>
     <style id="keyword" _name="Keyword" map-to="def:keyword"/>
     <style id="selector-id" _name="ID Selector" map-to="def:statement"/>
     <style id="selector-class" _name="Class Selector" map-to="def:identifier"/>
@@ -152,10 +152,12 @@
           <keyword>yellow</keyword>
         </context>
 
-        <context id="function" style-ref="function">
+        <context id="function">
           <start>[a-zA-Z][a-z0-9-]+\(</start>
           <end>\)</end>
           <include>
+            <context sub-pattern="0" where="start" style-ref="function"/>
+            <context sub-pattern="0" where="end" style-ref="function"/>
             <context ref="def:escape"/>
             <context ref="def:line-continue"/>
           </include>
