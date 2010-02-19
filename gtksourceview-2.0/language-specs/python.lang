@@ -48,6 +48,8 @@
     <style id="builtin-object"    _name="Builtin Object"        map-to="def:type"/>
     <style id="builtin-function"  _name="Builtin Function"      map-to="def:builtin"/>
     <style id="decorator"         _name="Decorator"             map-to="def:preprocessor"/>
+    <style id="function"          _name="Function"              map-to="def:function"/>
+    <style id="class"             _name="Class"                 map-to="def:function"/>
   </styles>
 
   <definitions>
@@ -223,19 +225,42 @@
 
         <context id="module-handler" style-ref="module-handler">
           <keyword>import</keyword>
-          <keyword>from</keyword>
           <keyword>as</keyword>
+        </context>
+
+        <context id="module-handler-from">
+          <match extended="true">
+            (from)
+            \s+
+            (\%{identifier-path})
+          </match>
+          <include>
+            <context sub-pattern="1" style-ref="module-handler"/>
+            <context sub-pattern="2" style-ref="class"/>
+          </include>
         </context>
 
         <context id="function-definition">
           <match extended="true">
-            (def|class)
+            (def)
             \s+
             (\%{identifier})
           </match>
           <include>
-            <context id="def-keyword" sub-pattern="1" style-ref="keyword"/>
-            <context id="function-name" sub-pattern="2" style-ref="def:function"/>
+            <context sub-pattern="1" style-ref="keyword"/>
+            <context sub-pattern="2" style-ref="function"/>
+          </include>
+        </context>
+
+        <context id="class-definition">
+          <match extended="true">
+            (class)
+            \s+
+            (\%{identifier})
+          </match>
+          <include>
+            <context sub-pattern="1" style-ref="keyword"/>
+            <context sub-pattern="2" style-ref="class"/>
           </include>
         </context>
 
