@@ -1,16 +1,16 @@
 <style-scheme id="native" _name="Native" version="1.0">
-<author>Armin Ronacher</author>
+<author>Patryk Zawadzki</author>
 <_description>A theme based on Native theme for vim and pygments</_description>
 <style name="line-numbers" foreground="#444444" background="#111111"/>
 <style name="text" foreground="#F2F2F2" background="#222222"/>
 <style name="selection" background="#708090"/>
-<style name="selection-unfocused" background="#53381E"/>
 <style name="cursor" background="#AAAAAA" underline="True"/>
 <style name="current-line" background="#111111"/>
 <style name="bracket-match" foreground="#F2F2F2" background="#AAAAAA" bold="True"/>
 <style name="bracket-mismatch" background="#E50000" bold="True"/>
 <style name="draw-spaces" foreground="#444444"/>
 <style name="search-match" foreground="#F2F2F2" background="#4E9A06" bold="False"/>
+<style name="css:selector-id" foreground="#FFA500"/>
 <style name="def:boolean" foreground="#24909D"/>
 <style name="def:builtin" foreground="#24909D"/>
 <style name="def:comment" foreground="#999999" italic="True"/>
@@ -30,5 +30,4 @@
 <style name="python:module-handler" foreground="#6ABB25" bold="True"/>
 <style name="python:special-variable" foreground="#24909D"/>
 <style name="xml:attribute-name" foreground="#6AB825" bold="True"/>
-<style name="css:selector-id" foreground="#FFA500"/>
 </style-scheme>
