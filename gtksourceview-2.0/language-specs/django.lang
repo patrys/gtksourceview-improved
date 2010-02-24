@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+
+ Copyright (C) 2010 Patryk Zawadzki <patrys@pld-linux.org>
+
+ This library is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License, or
+ (at your option) any later version.
+
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+
+ You should have received a copy of the GNU General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
+-->
+
+<language id="django" _name="Django/Jinja" version="2.0" _section="Other">
+  <styles>
+    <style id="builtins" _name="Builtin tags and filters" map-to="def:builtin"/>
+    <style id="comment" _name="Comment" map-to="def:comment"/>
+    <style id="escaped-char" _name="Escaped Character" map-to="def:special-char"/>
+    <style id="preprocessor" _name="Preprocessor tags" map-to="def:preprocessor"/>
+    <style id="string" _name="String" map-to="def:string"/>
+    <style id="keyword" _name="Keyword" map-to="def:keyword"/>
+    <style id="boolean" _name="Boolean value" map-to="def:boolean"/>
+    <style id="floating-point" _name="Floating point number" map-to="def:floating-point"/>
+    <style id="base-n-integer" _name="Base-N number" map-to="def:base-n-integer"/>
+    <style id="decimal" _name="Decimal number" map-to="def:decimal"/>
+  </styles>
+
+  <definitions>
+    <define-regex id="float" extended="true">
+      ( (\d+)?\.\d+ | \d+\. ) |
+      ( (\d+|(\d+)?\.\d+|\d+\.)[eE][+-]?\d+ )
+    </define-regex>
+
+    <context id="escaped-char" style-ref="escaped-char" extend-parent="true">
+      <match extended="true">
+        \\(                 # leading backslash
+        [\\'"abfnrtv]     | # single escaped char
+        N\{[A-Z\ ]+\}     | # named unicode character
+        u[0-9A-Fa-f]{4}   | # xxxx - character with 16-bit hex value xxxx
+        U[0-9A-Fa-f]{8}   | # xxxxxxxx - character with 32-bit hex value xxxxxxxx
+        x[0-9A-Fa-f]{1,2} | # \xhh - character with hex value hh
+        [0-7]{1,3}          # \ooo - character with octal value ooo
+        )
+      </match>
+    </context>
+
+    <context id="double-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>"</start>
+      <end>"</end>
+      <include>
+        <context ref="escaped-char"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="single-quoted-string" style-ref="string" class="string" class-disabled="no-spell-check">
+      <start>'</start>
+      <end>'</end>
+      <include>
+        <context ref="escaped-char"/>
+        <context ref="def:line-continue"/>
+      </include>
+    </context>
+
+    <context id="keywords" style-ref="keyword">
+      <keyword>and</keyword>
+      <keyword>as</keyword>
+      <keyword>not</keyword>
+      <keyword>or</keyword>
+    </context>
+
+    <context id="builtin-tags" style-ref="builtins">
+      <keyword>autoescape</keyword>
+      <keyword>block</keyword>
+      <keyword>csrf_token</keyword>
+      <keyword>cycle</keyword>
+      <keyword>debug</keyword>
+      <keyword>else</keyword>
+      <keyword>empty</keyword>
+      <keyword>endblock</keyword>
+      <keyword>endfor</keyword>
+      <keyword>endif</keyword>
+      <keyword>endifchanged</keyword>
+      <keyword>endifequal</keyword>
+      <keyword>endifnotequal</keyword>
+      <keyword>endwith</keyword>
+      <keyword>extends</keyword>
+      <keyword>filter</keyword>
+      <keyword>firstof</keyword>
+      <keyword>for</keyword>
+      <keyword>if</keyword>
+      <keyword>ifchanged</keyword>
+      <keyword>ifequal</keyword>
+      <keyword>ifnotequal</keyword>
+      <keyword>include</keyword>
+      <keyword>load</keyword>
+      <keyword>now</keyword>
+      <keyword>regroup</keyword>
+      <keyword>spaceless</keyword>
+      <keyword>ssi</keyword>
+      <keyword>templatetag</keyword>
+      <keyword>url</keyword>
+      <keyword>widthratio</keyword>
+      <keyword>with</keyword>
+    </context>
+
+    <context id="builtin-filters" style-ref="builtins">
+      <keyword>add</keyword>
+      <keyword>addslashes</keyword>
+      <keyword>capfirst</keyword>
+      <keyword>center</keyword>
+      <keyword>cut</keyword>
+      <keyword>date</keyword>
+      <keyword>default</keyword>
+      <keyword>default_if_none</keyword>
+      <keyword>dictsort</keyword>
+      <keyword>dictsortreversed</keyword>
+      <keyword>divisibleby</keyword>
+      <keyword>escape</keyword>
+      <keyword>escapejs</keyword>
+      <keyword>filesizeformat</keyword>
+      <keyword>first</keyword>
+      <keyword>fix_ampersands</keyword>
+      <keyword>floatformat</keyword>
+      <keyword>force_escape</keyword>
+      <keyword>get_digit</keyword>
+      <keyword>iriencode</keyword>
+      <keyword>join</keyword>
+      <keyword>last</keyword>
+      <keyword>length</keyword>
+      <keyword>length_is</keyword>
+      <keyword>linebreaks</keyword>
+      <keyword>linebreaksbr</keyword>
+      <keyword>linenumbers</keyword>
+      <keyword>ljust</keyword>
+      <keyword>lower</keyword>
+      <keyword>make_list</keyword>
+      <keyword>phone2numeric</keyword>
+      <keyword>pluralize</keyword>
+      <keyword>pprint</keyword>
+      <keyword>random</keyword>
+      <keyword>removetags</keyword>
+      <keyword>rjust</keyword>
+      <keyword>safe</keyword>
+      <keyword>safeseq</keyword>
+      <keyword>slice</keyword>
+      <keyword>slugify</keyword>
+      <keyword>stringformat</keyword>
+      <keyword>striptags</keyword>
+      <keyword>time</keyword>
+      <keyword>timesince</keyword>
+      <keyword>timeuntil</keyword>
+      <keyword>title</keyword>
+      <keyword>truncatewords</keyword>
+      <keyword>truncatewords_html</keyword>
+      <keyword>unordered_list</keyword>
+      <keyword>upper</keyword>
+      <keyword>urlencode</keyword>
+      <keyword>urlize</keyword>
+      <keyword>urlizetrunc</keyword>
+      <keyword>wordcount</keyword>
+      <keyword>wordwrap</keyword>
+      <keyword>yesno</keyword>
+    </context>
+
+    <context id="boolean" style-ref="boolean">
+      <prefix>(?i)\b</prefix> <!-- case insensitive -->
+      <keyword>false</keyword>
+      <keyword>true</keyword>
+    </context>
+
+    <context id="float" style-ref="floating-point">
+      <match>(?&lt;![\w\.])\%{float}(?![\w\.])</match>
+    </context>
+
+    <context id="decimal" style-ref="decimal">
+      <match>(?&lt;![\w\.])([1-9][0-9]*|0)[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="octal" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[0-7]+[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="hex" style-ref="base-n-integer">
+      <match>(?&lt;![\w\.])0[xX][0-9A-Fa-f]+[lL]?(?![\w\.])</match>
+    </context>
+
+    <context id="django-comment-block" style-ref="comment" style-inside="true">
+      <start>(\{%)-?\s*(comment)\s*-?(%\})</start>
+      <end>(\{%)-?\s*(endcomment)\s*-?(%\})</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="2" where="start" style-ref="builtins"/>
+        <context sub-pattern="3" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="1" where="end" style-ref="preprocessor"/>
+        <context sub-pattern="2" where="end" style-ref="builtins"/>
+        <context sub-pattern="3" where="end" style-ref="preprocessor"/>
+      </include>
+    </context>
+
+    <context id="django-code-block">
+      <start>\{%</start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="0" where="end" style-ref="preprocessor"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="keywords"/>
+        <context ref="builtin-tags"/>
+        <context ref="builtin-filters"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="octal"/>
+        <context ref="hex"/>
+      </include>
+    </context>
+
+    <context id="django-variable">
+      <start>\{\{</start>
+      <end>\}\}</end>
+      <include>
+        <context sub-pattern="0" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="0" where="end" style-ref="preprocessor"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="builtin-filters"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="octal"/>
+        <context ref="hex"/>
+      </include>
+    </context>
+
+    <context id="django-block">
+      <include>
+        <context ref="django-comment-block"/>
+        <context ref="django-variable"/>
+        <context ref="django-code-block"/>
+      </include>
+    </context>
+
+    <replace id="html:embedded-lang-hook" ref="django-block"/>
+
+    <context id="django" class="no-spell-check">
+      <include>
+        <context ref="django-block"/>
+        <context ref="html:html"/>
+      </include>
+    </context>
+  </definitions>
+</language>
