@@ -212,6 +212,7 @@
         -?
         \s*
         (if)
+        \b
       </start>
       <end>%\}</end>
       <include>
