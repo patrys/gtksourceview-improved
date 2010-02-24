@@ -18,9 +18,10 @@
  Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
 -->
 
-<language id="django" _name="Django/Jinja" version="2.0" _section="Other">
+<language id="django" _name="Django/Jinja" version="2.0" _section="Others">
   <styles>
-    <style id="builtins" _name="Builtin tags and filters" map-to="def:builtin"/>
+    <style id="builtin-tags" _name="Builtin filters" map-to="def:keyword"/>
+    <style id="builtin-filters" _name="Builtin filters" map-to="def:builtin"/>
     <style id="comment" _name="Comment" map-to="def:comment"/>
     <style id="escaped-char" _name="Escaped Character" map-to="def:special-char"/>
     <style id="preprocessor" _name="Preprocessor tags" map-to="def:preprocessor"/>
@@ -76,7 +77,7 @@
       <keyword>or</keyword>
     </context>
 
-    <context id="builtin-tags" style-ref="builtins">
+    <context id="builtin-tags" style-ref="builtin-tags">
       <keyword>autoescape</keyword>
       <keyword>block</keyword>
       <keyword>csrf_token</keyword>
@@ -111,7 +112,7 @@
       <keyword>with</keyword>
     </context>
 
-    <context id="builtin-filters" style-ref="builtins">
+    <context id="builtin-filters" style-ref="builtin-filters">
       <keyword>add</keyword>
       <keyword>addslashes</keyword>
       <keyword>capfirst</keyword>
@@ -197,11 +198,35 @@
       <end>(\{%)-?\s*(endcomment)\s*-?(%\})</end>
       <include>
         <context sub-pattern="1" where="start" style-ref="preprocessor"/>
-        <context sub-pattern="2" where="start" style-ref="builtins"/>
+        <context sub-pattern="2" where="start" style-ref="builtin-tags"/>
         <context sub-pattern="3" where="start" style-ref="preprocessor"/>
         <context sub-pattern="1" where="end" style-ref="preprocessor"/>
-        <context sub-pattern="2" where="end" style-ref="builtins"/>
+        <context sub-pattern="2" where="end" style-ref="builtin-tags"/>
         <context sub-pattern="3" where="end" style-ref="preprocessor"/>
+      </include>
+    </context>
+
+    <context id="django-if-block">
+      <start extended="true">
+        (\{%)
+        -?
+        \s*
+        (if)
+      </start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="2" where="start" style-ref="builtin-tags"/>
+        <context sub-pattern="0" where="end" style-ref="preprocessor"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context ref="keywords"/>
+        <context ref="builtin-filters"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="octal"/>
+        <context ref="hex"/>
       </include>
     </context>
 
@@ -213,7 +238,6 @@
         <context sub-pattern="0" where="end" style-ref="preprocessor"/>
         <context ref="double-quoted-string"/>
         <context ref="single-quoted-string"/>
-        <context ref="keywords"/>
         <context ref="builtin-tags"/>
         <context ref="builtin-filters"/>
         <context ref="boolean"/>
@@ -245,6 +269,7 @@
       <include>
         <context ref="django-comment-block"/>
         <context ref="django-variable"/>
+        <context ref="django-if-block"/>
         <context ref="django-code-block"/>
       </include>
     </context>
