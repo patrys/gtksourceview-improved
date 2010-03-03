@@ -31,12 +31,19 @@
     <style id="floating-point" _name="Floating point number" map-to="def:floating-point"/>
     <style id="base-n-integer" _name="Base-N number" map-to="def:base-n-integer"/>
     <style id="decimal" _name="Decimal number" map-to="def:decimal"/>
+    <style id="url-name" _name="URL name" map-to="def:function"/>
   </styles>
 
   <definitions>
     <define-regex id="float" extended="true">
       ( (\d+)?\.\d+ | \d+\. ) |
       ( (\d+|(\d+)?\.\d+|\d+\.)[eE][+-]?\d+ )
+    </define-regex>
+
+    <define-regex id="identifier">[_a-zA-Z][_a-zA-Z0-9]*</define-regex>
+
+    <define-regex id="identifier-path" extended="true">
+        (\%{identifier}\.)*\%{identifier}
     </define-regex>
 
     <context id="escaped-char" style-ref="escaped-char" extend-parent="true">
@@ -95,8 +102,6 @@
       <keyword>extends</keyword>
       <keyword>filter</keyword>
       <keyword>firstof</keyword>
-      <keyword>for</keyword>
-      <keyword>if</keyword>
       <keyword>ifchanged</keyword>
       <keyword>ifequal</keyword>
       <keyword>ifnotequal</keyword>
@@ -107,7 +112,6 @@
       <keyword>spaceless</keyword>
       <keyword>ssi</keyword>
       <keyword>templatetag</keyword>
-      <keyword>url</keyword>
       <keyword>widthratio</keyword>
       <keyword>with</keyword>
     </context>
@@ -258,6 +262,35 @@
       </include>
     </context>
 
+    <context id="django-url-block">
+      <start extended="true">
+        (\{%)
+        -?
+        \s*
+        (url)
+        \s+
+        (\%{identifier-path})
+      </start>
+      <end>%\}</end>
+      <include>
+        <context sub-pattern="1" where="start" style-ref="preprocessor"/>
+        <context sub-pattern="2" where="start" style-ref="builtin-tags"/>
+        <context sub-pattern="3" where="start" style-ref="url-name"/>
+        <context sub-pattern="0" where="end" style-ref="preprocessor"/>
+        <context ref="double-quoted-string"/>
+        <context ref="single-quoted-string"/>
+        <context style-ref="keyword">
+            <match>as</match>
+        </context>
+        <context ref="builtin-filters"/>
+        <context ref="boolean"/>
+        <context ref="float"/>
+        <context ref="decimal"/>
+        <context ref="octal"/>
+        <context ref="hex"/>
+      </include>
+    </context>
+
     <context id="django-code-block">
       <start>\{%</start>
       <end>%\}</end>
@@ -299,6 +332,7 @@
         <context ref="django-variable"/>
         <context ref="django-if-block"/>
         <context ref="django-for-block"/>
+        <context ref="django-url-block"/>
         <context ref="django-code-block"/>
       </include>
     </context>

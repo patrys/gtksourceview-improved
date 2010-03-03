@@ -26,6 +26,7 @@
 <style name="def:statement" foreground="#6AB825" bold="True"/>
 <style name="def:string" foreground="#ED9D13"/>
 <style name="def:type" foreground="#BBBBBB" bold="True"/>
+<style name="django:url-name" foreground="#447FCF" underline="True"/>
 <style name="python:class" foreground="#447FCF" underline="True"/>
 <style name="python:decorator" foreground="#FFA500"/>
 <style name="python:module-handler" foreground="#6ABB25" bold="True"/>
