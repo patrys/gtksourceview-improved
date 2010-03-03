@@ -136,6 +136,27 @@
             </include>
         </context>
 
+        <context id="stylesheet" class="no-spell-check">
+            <start>&lt;\s*style\%]</start>
+            <end>&lt;\s*/\s*style\s*&gt;</end>
+
+            <include>
+                <context sub-pattern="0" where="start" style-ref="tag"/>
+                <context sub-pattern="0" where="end" style-ref="tag"/>
+                <context ref="generic-tag"/>
+                <context end-parent="true" style-ref="tag">
+                    <match>/\s*&gt;</match>
+                </context>
+                <context id="css-code" extend-parent="false">
+                    <start>&gt;</start>
+                    <include>
+                        <context sub-pattern="0" where="start" style-ref="tag"/>
+                        <context ref="css:css"/>
+                    </include>
+                </context>
+            </include>
+        </context>
+
         <context id="tag" class="no-spell-check">
             <start>&lt;\s*/?\s*[a-z0-9_-]+</start>
             <end>/?\s*&gt;</end>
@@ -155,6 +176,7 @@
                 <context ref="comment"/>
                 <context ref="dtd"/>
                 <context ref="script"/>
+                <context ref="stylesheet"/>
                 <context ref="tag"/>
             </include>
         </context>
