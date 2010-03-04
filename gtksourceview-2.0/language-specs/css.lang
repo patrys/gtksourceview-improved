@@ -125,6 +125,7 @@
       <start>\{</start>
       <end>\}</end>
       <include>
+        <context ref="comment"/>
         <context ref="at-rules"/>
         <context ref="style-block"/>
 
