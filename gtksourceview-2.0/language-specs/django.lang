@@ -251,7 +251,7 @@
         <context ref="double-quoted-string"/>
         <context ref="single-quoted-string"/>
         <context style-ref="keyword">
-            <match>in</match>
+            <match>\bin\b</match>
         </context>
         <context ref="builtin-filters"/>
         <context ref="boolean"/>
@@ -280,7 +280,7 @@
         <context ref="double-quoted-string"/>
         <context ref="single-quoted-string"/>
         <context style-ref="keyword">
-            <match>as</match>
+            <match>\bas\b</match>
         </context>
         <context ref="builtin-filters"/>
         <context ref="boolean"/>
