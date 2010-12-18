@@ -32,6 +32,7 @@
   </metadata>
 
   <styles>
+    <style id="boolean" _name="Boolean" map-to="js:boolean"/>
     <style id="keyword" _name="Keyword" map-to="js:keyword"/>
     <style id="type" _name="Data Type" map-to="js:type"/>
     <style id="preprocessor" _name="Preprocessor" map-to="def:preprocessor"/>
@@ -86,6 +87,11 @@
          good to highlight in C headers -->
     <context id="objj-source">
       <include>
+        <context id="objj-bools" style-ref="boolean">
+          <keyword>YES</keyword>
+          <keyword>NO</keyword>
+        </context>
+
         <context id="objj-keywords" style-ref="keyword">
           <keyword>self</keyword>
           <keyword>super</keyword>
@@ -96,6 +102,7 @@
           <keyword>BOOL</keyword>
           <keyword>Class</keyword>
           <keyword>id</keyword>
+          <keyword>int</keyword>
           <keyword>IMP</keyword>
           <keyword>SEL</keyword>
         </context>
